@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Esther's Running Tracker</title>
+    <!-- CSS -->
+    <link rel="stylesheet" href="styles.css" />
+    <!-- GFont -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header>
+      <h1>Running Tracker</h1>
+    </header>
+    <main>
+      <!-- El Form de Running -->
+
+      <form id="run-form">
+        <div id="type-distance">
+          <label for="run-type">Run Type:</label>
+          <select id="run-type" required>
+            <option value="Endurance">Endurance</option>
+            <option value="Speed">Speed</option>
+            <option value="Easy - Run">Easy/Recovery</option>
+          </select>
+
+          <label for="distance">Distance:</label>
+          <input
+            type="number"
+            id="distance"
+            required
+            step="0.01"
+            placeholder="00.00 km/mi"
+          />
+
+          <select id="distance-unit">
+            <option value="km">Km</option>
+            <option value="miles">Mi</option>
+          </select>
+        </div>
+
+        <div id="duration-date">
+          <label for="duration">Duration:</label>
+          <input
+            type="number"
+            id="duration"
+            required
+            step="0.01"
+            placeholder="00.00 hr.min"
+          />
+
+          <label for="date">Date:</label>
+          <input type="date" id="date" required />
+        </div>
+        <div class="button-container">
+          <button type="submit">Add Run</button>
+        </div>
+      </form>
+
+      <!-- Para que se display el Running History -->
+      <section id="run-list">
+        <h2>Running History</h2>
+        <ul>
+          <!-- Los Runs que se van agregando-->
+        </ul>
+      </section>
+
+      <!-- El Form de Goals -->
+      <h2>My Goals</h2>
+      <form id="goal-form">
+        <div id="goal-distance">
+          <label for="target-distance">Target Race Distance:</label>
+          <input
+            type="number"
+            id="target-distance"
+            required
+            step="0.01"
+            placeholder="00.00 km/mi"
+          />
+
+          <select id="target-distance-unit">
+            <option value="km">Km</option>
+            <option value="miles">Mi</option>
+          </select>
+        </div>
+
+        <div id="goal-time">
+          <label for="target-time">Target Race Time:</label>
+          <input
+            type="number"
+            id="target-time"
+            required
+            step="0.01"
+            placeholder="00.00 hr.min"
+          />
+        </div>
+        <div class="button-container">
+          <button type="submit">Set Goal</button>
+        </div>
+      </form>
+
+      <!-- Para que se display los Goals-->
+      <section id="goal-list">
+        <ul>
+          <!-- Los Goals que se van agregando -->
+        </ul>
+      </section>
+
+      <!-- Profile -->
+      <section id="user-profile">
+        <h2>My Profile</h2>
+        <p><strong>Name:</strong> Esther Smeke</p>
+        <p><strong>Age:</strong> 32</p>
+      </section>
+    </main>
+    <!-- El footer y copy -->
+    <footer>
+      <p>&copy; 2023 Running Tracker</p>
+    </footer>
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+  </body>
+</html>
