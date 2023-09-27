@@ -66,6 +66,11 @@ document.addEventListener("DOMContentLoaded", function () {
       localStorage.setItem("runs", JSON.stringify(runs));
     }
 
+    // Funcion para accesar a los runs desde el Local Storage
+    function getRuns() {
+      return JSON.parse(localStorage.getItem("runs")) || [];
+    }
+
     // Reseteamos el Form
     runForm.reset();
   }
@@ -104,8 +109,13 @@ document.addEventListener("DOMContentLoaded", function () {
       // El goalData pushea los "goals" al Array para crear nuevos entrys
       goals.push(goalData);
 
-      // Store the updated array in local storage
+      // El Array "goals" (con los nuevos entrys) se guarda en el Local Storage. Volvemos a convertir a un JSON string para guardar y llamamos la funcion
       localStorage.setItem("goals", JSON.stringify(goals));
+    }
+
+    // Funcion para accesar a los goals desde el Local Storage
+    function getGoals() {
+      return JSON.parse(localStorage.getItem("goals")) || [];
     }
 
     // Reseteamos el Form
