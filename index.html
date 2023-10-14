@@ -59,7 +59,8 @@
           <input type="date" id="date" required />
 
           <label for="city">City:</label>
-          <input type="text" id="city" required />
+          <input type="text" id="city" list="cities" required />
+          <datalist id="cities"></datalist>
         </div>
 
         <div class="button-container">
@@ -129,5 +130,7 @@
     </footer>
     <!-- JavaScript -->
     <script src="main.js"></script>
+    <!-- JS para el dropdown de City -->
+    <script src="autocomplete.js"></script>
   </body>
 </html>

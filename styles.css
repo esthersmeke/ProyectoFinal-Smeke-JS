@@ -54,7 +54,7 @@ label {
 
 input[type="number"],
 input[type="date"],
-input[type="city"],
+input[type="text"],
 select {
   padding: 10px;
   margin-bottom: 10px;
@@ -68,7 +68,17 @@ select {
   width: auto;
 }
 
-/* Bototnes */
+/* Dropdown de City */
+#city-suggestions {
+  position: absolute;
+  background-color: #fff;
+  border: 1px solid #ddd;
+  max-height: 150px;
+  overflow-y: auto;
+  z-index: 1;
+}
+
+/* Botones */
 .button-container {
   display: flex;
   flex-direction: column;
