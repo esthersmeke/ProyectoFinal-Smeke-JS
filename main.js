@@ -49,8 +49,11 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await axios.get(apiUrl);
       const weatherData = response.data;
 
-      // Display del weather information para cada Run
-      const weatherInfo = `Weather: ${weatherData.weather[0].description}, Temperature: ${weatherData.main.temp}°C`;
+      // Convert the temperature from Kelvin to Celsius and round to two decimal places
+      const temperature = (weatherData.main.temp - 273.15).toFixed(0);
+
+      // Display de la temperatura redondeada para cada Run
+      const weatherInfo = `Weather: ${weatherData.weather[0].description}, Temperature: ${temperature}°C`;
 
       // Seleccion del Div de weather y detectamos si hay error
       const weatherInfoDiv = listItem.querySelector(".weather-info");
