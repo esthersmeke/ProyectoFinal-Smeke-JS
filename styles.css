@@ -54,6 +54,7 @@ label {
 
 input[type="number"],
 input[type="date"],
+input[type="city"],
 select {
   padding: 10px;
   margin-bottom: 10px;

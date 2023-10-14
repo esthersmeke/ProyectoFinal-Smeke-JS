@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Esther's Running Tracker</title>
+    <!--Libreria Axios-->
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
     <!-- CSS -->
     <link rel="stylesheet" href="styles.css" />
     <!-- GFont -->
@@ -18,7 +21,6 @@
     </header>
     <main>
       <!-- El Form de Running -->
-
       <form id="run-form">
         <div id="type-distance">
           <label for="run-type">Run Type:</label>
@@ -55,7 +57,11 @@
 
           <label for="date">Date:</label>
           <input type="date" id="date" required />
+
+          <label for="city">City:</label>
+          <input type="text" id="city" required />
         </div>
+
         <div class="button-container">
           <button type="submit">Add Run</button>
         </div>
