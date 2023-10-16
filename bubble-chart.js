@@ -17,7 +17,7 @@ function createBubbleChart(runDataArray) {
           pointStyle: "circle", // Set pointStyle to 'circle' for bubbles
           borderColor: "rgba(0, 0, 0, 1)", // Set the border color to black
           borderWidth: 0.6, // Set the border width to 1px
-          label: "Total Runs",
+          label: "My Runs",
         },
       ],
     },
@@ -69,4 +69,5 @@ function addRunToChart(run) {
   localStorage.setItem("runs", JSON.stringify(runDataArray));
   // Update the chart
   createBubbleChart(runDataArray);
+  chart.update();
 }

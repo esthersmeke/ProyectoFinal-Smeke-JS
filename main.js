@@ -11,7 +11,6 @@ document.addEventListener("DOMContentLoaded", function () {
     // El Array "runs" (con los nuevos entries) se guarda en el Local Storage. Volvemos a convertir a un JSON string para guardar y llamamos la función
     localStorage.setItem("runs", JSON.stringify(runs));
   }
-
   // Funcion para guardar los datos en el Local Storage pero son Objects
   function storageGoal(goalData) {
     // Parseamos los datos existentes para convertir a Array. Si no hay datos, arrancamos un Array nuevo "goals".
@@ -22,6 +21,80 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // El Array "goals" (con los nuevos entries) se guarda en el Local Storage. Volvemos a convertir a un JSON string para guardar y llamamos la función
     localStorage.setItem("goals", JSON.stringify(goals));
+  }
+  // Function to load and render runs from Local Storage (Added)
+  function loadRunsFromLocalStorage() {
+    const runList = document
+      .getElementById("run-list")
+      .getElementsByTagName("ul")[0];
+    // Get the runs from Local Storage
+    const storedRunData = JSON.parse(localStorage.getItem("runs")) || [];
+
+    // Iterate through the stored run data and render each run in the running history
+    storedRunData.forEach((run) => {
+      const listItem = document.createElement("li");
+
+      const runType = run.Type;
+      const distance = run.Distance;
+      const distanceUnit = run.Unit;
+      const duration = run.Time;
+      const date = run.Date;
+      const city = run.City;
+      let durationDisplay;
+
+      // Determinamos si vamos a mostrar minutos u horas. toFixed para que nos muestre decimales que serían minutos.
+      if (duration >= 1) {
+        durationDisplay = `${duration.toFixed(2)} hrs`;
+      } else {
+        durationDisplay = `${(duration * 60).toFixed(0)} min`;
+      }
+
+      // Creamos un div para el Run info
+      const runInfoDiv = document.createElement("div");
+      runInfoDiv.innerHTML = `<strong>${runType}</strong>  ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
+
+      // Creamos un div para el Weather info
+      const weatherInfoDiv = document.createElement("div");
+      weatherInfoDiv.className = "weather-info";
+
+      // Agregamos los divs de Run info y Weather info a la lista
+      listItem.appendChild(runInfoDiv);
+      // Agregamos un Br entre el run y el weather
+      listItem.appendChild(document.createElement("br"));
+      listItem.appendChild(weatherInfoDiv);
+
+      // Agregamos animacion fade-in a los list item
+      listItem.classList.add("fade-in");
+
+      // Llamamos a la función de Weather para mostrarla en la lista
+      fetchWeather(city, date, listItem);
+
+      // Agregamos el entry a la lista del History
+      runList.appendChild(listItem);
+    });
+  }
+  // Function to load and render goals from Local Storage
+  function loadGoalsFromLocalStorage() {
+    const goalList = document
+      .getElementById("goal-list")
+      .getElementsByTagName("ul")[0];
+
+    // Get the goals from Local Storage
+    const storedGoalData = JSON.parse(localStorage.getItem("goals")) || [];
+
+    // Iterate through the stored goal data and render each goal
+    storedGoalData.forEach((goal) => {
+      const listItem = document.createElement("li");
+
+      const targetDistance = goal.Distance;
+      const targetDistanceUnit = goal.Unit;
+      const targetTime = goal.Time;
+
+      listItem.innerHTML = `<strong>Distance and Time Goal:</strong> ${targetDistance} ${targetDistanceUnit} in ${targetTime} hrs`;
+
+      // Agregamos el entry a the goals list
+      goalList.appendChild(listItem);
+    });
   }
 
   // Seleccionamos los Forms
@@ -65,7 +138,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
-  // Funcion para agregar un Run y la llamamos
   function addRun(event) {
     event.preventDefault();
 
@@ -76,7 +148,6 @@ document.addEventListener("DOMContentLoaded", function () {
     const date = document.getElementById("date").value;
     const city = document.getElementById("city").value;
 
-    // Determinamos si vamos a mostrar minutos u horas. toFixed para que nos muestre decimales que serían minutos.
     let durationDisplay;
     if (duration >= 1) {
       durationDisplay = `${duration.toFixed(2)} hrs`;
@@ -84,33 +155,21 @@ document.addEventListener("DOMContentLoaded", function () {
       durationDisplay = `${(duration * 60).toFixed(0)} min`;
     }
 
-    // Creamos un nuevo entry de Running History
     const listItem = document.createElement("li");
-
-    // Creamos un div para el Run info
     const runInfoDiv = document.createElement("div");
-    runInfoDiv.innerHTML = `<strong>${runType}</strong>  ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
-
-    // Creamos un div para el Weather info
+    runInfoDiv.innerHTML = `<strong>${runType}</strong> ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
     const weatherInfoDiv = document.createElement("div");
     weatherInfoDiv.className = "weather-info";
 
-    // Agregamos los divs de Run info y Weather info a la lista
     listItem.appendChild(runInfoDiv);
-    // Agregamos un Br entre el run y el weather
     listItem.appendChild(document.createElement("br"));
     listItem.appendChild(weatherInfoDiv);
 
-    // Agregamos animacion fade-in a los list item
     listItem.classList.add("fade-in");
-
-    // Llamamos a la función de Weather para mostrarla en la lista
     fetchWeather(city, date, listItem);
 
-    // Agregamos el entry a la lista del History
     runList.appendChild(listItem);
 
-    // Datos para el Local Storage. Key: Value
     storageRun({
       Type: runType,
       Distance: distance,
@@ -120,11 +179,9 @@ document.addEventListener("DOMContentLoaded", function () {
       City: city,
     });
 
-    // Reseteamos el Form
     runForm.reset();
   }
 
-  // Funcion para agregar un Goal y la llamamos
   function setGoal(event) {
     event.preventDefault();
 
@@ -134,21 +191,20 @@ document.addEventListener("DOMContentLoaded", function () {
     ).value;
     const targetTime = parseFloat(document.getElementById("target-time").value);
 
-    // Creamos un nuevo entry de Goals
     const listItem = document.createElement("li");
     listItem.innerHTML = `<strong>Distance and Time Goal:</strong> ${targetDistance} ${targetDistanceUnit} in ${targetTime} hrs`;
 
-    // Agregamos el entry a la lista de los Goals
     goalList.appendChild(listItem);
 
-    // Datos para el Local Storage. Key: Value
     storageGoal({
       Distance: targetDistance,
       Unit: targetDistanceUnit,
       Time: targetTime,
     });
 
-    // Reseteamos el Form
     goalForm.reset();
   }
+
+  loadRunsFromLocalStorage();
+  loadGoalsFromLocalStorage();
 });
