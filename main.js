@@ -84,16 +84,25 @@ document.addEventListener("DOMContentLoaded", function () {
       durationDisplay = `${(duration * 60).toFixed(0)} min`;
     }
 
-    // Creamos un nuevo entry de Run
+    // Creamos un nuevo entry de Running History
     const listItem = document.createElement("li");
-    listItem.innerHTML = `
-          <strong>${runType}</strong>  ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
 
-    // Creamos el Div del weather information
+    // Creamos un div para el Run info
+    const runInfoDiv = document.createElement("div");
+    runInfoDiv.innerHTML = `<strong>${runType}</strong>  ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
+
+    // Creamos un div para el Weather info
     const weatherInfoDiv = document.createElement("div");
-    weatherInfoDiv.className = "weather-info"; // CAMBIARLE EL STYLE
-    // Agregamos el Div weather-info a la lista
+    weatherInfoDiv.className = "weather-info";
+
+    // Agregamos los divs de Run info y Weather info a la lista
+    listItem.appendChild(runInfoDiv);
+    // Agregamos un Br entre el run y el weather
+    listItem.appendChild(document.createElement("br"));
     listItem.appendChild(weatherInfoDiv);
+
+    // Agregamos animacion fade-in a los list item
+    listItem.classList.add("fade-in");
 
     // Llamamos a la función de Weather para mostrarla en la lista
     fetchWeather(city, date, listItem);

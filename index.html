@@ -14,6 +14,8 @@
       href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap"
       rel="stylesheet"
     />
+    <!-- Stats Chart -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   </head>
   <body>
     <header>
@@ -59,12 +61,18 @@
           <input type="date" id="date" required />
 
           <label for="city">City:</label>
-          <input type="text" id="city" list="cities" required />
+          <input
+            type="text"
+            id="city"
+            list="cities"
+            required
+            placeholder="New York"
+          />
           <datalist id="cities"></datalist>
         </div>
 
         <div class="button-container">
-          <button type="submit">Add Run</button>
+          <button type="submit" id="add-run-button">Add Run</button>
         </div>
       </form>
 
@@ -123,6 +131,8 @@
         <p><strong>Name:</strong> Esther Smeke</p>
         <p><strong>Age:</strong> 32</p>
       </section>
+      <!-- Stats Bubble Chart -->
+      <canvas id="running-bubble-chart"></canvas>
     </main>
     <!-- El footer y copy -->
     <footer>
@@ -130,7 +140,8 @@
     </footer>
     <!-- JavaScript -->
     <script src="main.js"></script>
-    <!-- JS para el dropdown de City -->
+    <!-- JS para el dropdown de Cities -->
     <script src="autocomplete.js"></script>
+    <script src="bubble-chart.js"></script>
   </body>
 </html>

@@ -12,6 +12,7 @@ body {
   margin: 0;
   padding: 0;
   color: #333;
+  font-size: 1em;
 }
 
 header {
@@ -110,7 +111,8 @@ li {
   padding: 8px 0;
   border-bottom: 1px solid #ddd;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-evenly;
 }
 
 /* Footer */
@@ -120,4 +122,24 @@ footer {
   color: #777;
   padding: 1rem 0;
   box-shadow: 0 -2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Animacion fade-in */
+.fade-in {
+  animation: fadeIn 0.5s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@media (max-width: 600px) {
+  body {
+    font-size: 14px;
+  }
 }
