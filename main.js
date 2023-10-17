@@ -22,15 +22,15 @@ document.addEventListener("DOMContentLoaded", function () {
     // El Array "goals" (con los nuevos entries) se guarda en el Local Storage. Volvemos a convertir a un JSON string para guardar y llamamos la función
     localStorage.setItem("goals", JSON.stringify(goals));
   }
-  // Function to load and render runs from Local Storage (Added)
+  // Funcion para cargar los Runs del Local Storage
   function loadRunsFromLocalStorage() {
     const runList = document
       .getElementById("run-list")
       .getElementsByTagName("ul")[0];
-    // Get the runs from Local Storage
+    // Parseamos los datos existentes para convertir a Array. Si no hay datos, arrancamos un Array nuevo "runs".
     const storedRunData = JSON.parse(localStorage.getItem("runs")) || [];
 
-    // Iterate through the stored run data and render each run in the running history
+    // Ejecutamos los Run Data y los mostramos en el Running History
     storedRunData.forEach((run) => {
       const listItem = document.createElement("li");
 
@@ -73,16 +73,16 @@ document.addEventListener("DOMContentLoaded", function () {
       runList.appendChild(listItem);
     });
   }
-  // Function to load and render goals from Local Storage
+  // Funcion para loadear los Goals desde el Local Storage
   function loadGoalsFromLocalStorage() {
     const goalList = document
       .getElementById("goal-list")
       .getElementsByTagName("ul")[0];
 
-    // Get the goals from Local Storage
+    // Parseamos
     const storedGoalData = JSON.parse(localStorage.getItem("goals")) || [];
 
-    // Iterate through the stored goal data and render each goal
+    // Ejecutamos los Goals y los mostramos
     storedGoalData.forEach((goal) => {
       const listItem = document.createElement("li");
 
@@ -122,7 +122,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const response = await axios.get(apiUrl);
       const weatherData = response.data;
 
-      // Convert the temperature from Kelvin to Celsius and round to two decimal places
+      // Convertimos Temeratura de Kelvin a Celsius y los redondeamos
       const temperature = (weatherData.main.temp - 273.15).toFixed(0);
 
       // Display de la temperatura redondeada para cada Run
@@ -137,10 +137,11 @@ document.addEventListener("DOMContentLoaded", function () {
       console.error("Error fetching weather data:", error);
     }
   }
-
+  // Funcion para agregar un Run y la llamamos
   function addRun(event) {
     event.preventDefault();
 
+    // Sacamos los values de los inputs
     const runType = document.getElementById("run-type").value;
     const distance = parseFloat(document.getElementById("distance").value);
     const distanceUnit = document.getElementById("distance-unit").value;
@@ -148,6 +149,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const date = document.getElementById("date").value;
     const city = document.getElementById("city").value;
 
+    // Determinamos si vamos a mostrar minutos u horas. toFixed para que nos muestre decimales que serian min.
     let durationDisplay;
     if (duration >= 1) {
       durationDisplay = `${duration.toFixed(2)} hrs`;
@@ -155,6 +157,7 @@ document.addEventListener("DOMContentLoaded", function () {
       durationDisplay = `${(duration * 60).toFixed(0)} min`;
     }
 
+    // Creamos un nuevo entry de Run y Divs para el display
     const listItem = document.createElement("li");
     const runInfoDiv = document.createElement("div");
     runInfoDiv.innerHTML = `<strong>${runType}</strong> ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
@@ -165,11 +168,14 @@ document.addEventListener("DOMContentLoaded", function () {
     listItem.appendChild(document.createElement("br"));
     listItem.appendChild(weatherInfoDiv);
 
+    // Agregamos animacion de fade-in
     listItem.classList.add("fade-in");
     fetchWeather(city, date, listItem);
 
+    // Agregaamos el Item a la Lista
     runList.appendChild(listItem);
 
+    // Guardamos el Run Data en el Local Storage
     storageRun({
       Type: runType,
       Distance: distance,
@@ -179,9 +185,11 @@ document.addEventListener("DOMContentLoaded", function () {
       City: city,
     });
 
+    // Reseteamos el form
     runForm.reset();
   }
 
+  // Funcion para settear un Goal
   function setGoal(event) {
     event.preventDefault();
 
@@ -191,20 +199,25 @@ document.addEventListener("DOMContentLoaded", function () {
     ).value;
     const targetTime = parseFloat(document.getElementById("target-time").value);
 
+    // Mostramos el Goal
     const listItem = document.createElement("li");
     listItem.innerHTML = `<strong>Distance and Time Goal:</strong> ${targetDistance} ${targetDistanceUnit} in ${targetTime} hrs`;
 
+    // Agregaamos el Item a la Lista
     goalList.appendChild(listItem);
 
+    // Guardamos el Goal en el Local Storage
     storageGoal({
       Distance: targetDistance,
       Unit: targetDistanceUnit,
       Time: targetTime,
     });
 
+    // Reseteamos el form
     goalForm.reset();
   }
 
+  // Lodeamos los Runs y los Goals desde el Local Sorage para que se display cuando abro la pagina
   loadRunsFromLocalStorage();
   loadGoalsFromLocalStorage();
 });
