@@ -51,7 +51,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
       // Creamos un div para el Run info
       const runInfoDiv = document.createElement("div");
-      runInfoDiv.innerHTML = `<strong>${runType}</strong>  ${distance} ${distanceUnit} in ${durationDisplay}, Date: ${date}`;
+      runInfoDiv.innerHTML = `<strong>${runType}</strong>  ${distance} ${distanceUnit} in ${durationDisplay}, Date: <em> ${date}</em>`;
 
       // Creamos un div para el Weather info
       const weatherInfoDiv = document.createElement("div");
@@ -126,7 +126,7 @@ document.addEventListener("DOMContentLoaded", function () {
       const temperature = (weatherData.main.temp - 273.15).toFixed(0);
 
       // Display de la temperatura redondeada para cada Run
-      const weatherInfo = `Weather: ${weatherData.weather[0].description}, Temperature: ${temperature}°C`;
+      const weatherInfo = `Weather in ${city}: ${weatherData.weather[0].description}, Temperature: ${temperature}°C`;
 
       // Seleccion del Div de weather y detectamos si hay error
       const weatherInfoDiv = listItem.querySelector(".weather-info");
