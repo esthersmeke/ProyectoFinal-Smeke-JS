@@ -1,2 +1,2 @@
-# preEntrega3-Smeke-JS
+# EntregaFinal-Smeke-JS
  Running Tracker
